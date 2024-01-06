@@ -31,4 +31,25 @@ public class GameDataService(DataContext dataContext) : IGameService
         dto.Id = game.Id;
         return dto;
     }
+    
+    public async Task<GameDto> UpdateGameAsync(GameDto dto)
+    {
+        var game = await dataContext.Games.FirstOrDefaultAsync(x => x.Id == dto.Id);
+        game.Name = dto.Name;
+        
+        await dataContext.SaveChangesAsync();
+
+        return dto;
+    }
+
+    public async Task<GameDto> GetByIdAsync(int id)
+    {
+        return await dataContext.Games
+            .Select(x => new GameDto()
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

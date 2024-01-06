@@ -1,0 +1,64 @@
+@page "/games/create"
+@page "/games/edit/{id:int}"
+@using BlazorCrud.Shared
+@rendermode InteractiveAuto
+
+@inject NavigationManager NavigationManager
+@inject IGameService GameService
+
+<div class="row">
+    <div class="col">
+        @if (Id.HasValue)
+        {
+            <h3>Edit @Game.Name</h3>
+        }
+        else
+        {
+            <h3>Create</h3>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <EditForm Model="Game" OnSubmit="OnSubmit" FormName="editGameForm">
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="Game.Name">@Game.Name</InputText>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private GameDto Game { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            Game = await GameService.GetByIdAsync(Id.Value);
+        }
+    }
+    
+    private async Task OnSubmit(EditContext context)
+    {
+        if (Id.HasValue)
+        {
+            await GameService.UpdateGameAsync(Game);
+        }
+        else
+        {
+            await GameService.AddGameAsync(Game);
+        }
+
+        NavigationManager.NavigateTo("/games");
+    }
+
+}
