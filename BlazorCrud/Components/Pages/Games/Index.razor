@@ -7,6 +7,15 @@
 <div class="row">
     <div class="col-8">
         <h3>Games</h3>
+        <p>
+            This page is loaded using Server Side Rendering (SSR), which is effectively Razor Pages but with Blazor components <br/>
+            There is no rich interactivity on this page, with the exception of the &lt;NavigationButton/&gt; component. <br/>
+            You can use regular HTML navigation, like links.
+        </p>
+        <p>
+            However, with StreamRendering you can render the HTML before the results of async calls (like data access), and then
+            stream the results into the page. Magic!
+        </p>
     </div>
     <div class="col-4">
         <NavigationButton Path="/games/create" Text="Create Game"></NavigationButton>
