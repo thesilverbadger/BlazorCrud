@@ -27,10 +27,16 @@
 
 @if (_games is null)
 {
-    <div class="row">
-        <div class="col">
-            <span class="visually-hidden">Loading...</span>
-            <img src="images/Eclipse-1s-200px.gif" alt="loading-gif"/>
+    <div class="row mt-3">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card" aria-hidden="true">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-12"></span>
+                    </h5>
+                    <a class="btn btn-outline-primary float-end disabled placeholder col-3" aria-disabled="true"></a>
+                </div>
+            </div>
         </div>
     </div>
 }
