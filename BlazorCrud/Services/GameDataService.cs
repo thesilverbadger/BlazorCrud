@@ -5,19 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrud.Services;
 
-public class GameDataService : IGameService
+public class GameDataService(DataContext dataContext) : IGameService
 {
-    private readonly DataContext _dataContext;
-
-    public GameDataService(DataContext dataContext)
-    {
-        _dataContext = dataContext;
-    }
-
     public async Task<List<GameDto>> GetAllAsync()
     {
         await Task.Delay(2000);
-        return await _dataContext.Games
+        return await dataContext.Games
             .Select(x => new GameDto()
             {
                 Id = x.Id,
@@ -32,8 +25,8 @@ public class GameDataService : IGameService
         {
             Name = dto.Name
         };
-        await _dataContext.Games.AddAsync(game);
-        await _dataContext.SaveChangesAsync();
+        await dataContext.Games.AddAsync(game);
+        await dataContext.SaveChangesAsync();
 
         dto.Id = game.Id;
         return dto;

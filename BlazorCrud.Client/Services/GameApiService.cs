@@ -2,8 +2,10 @@ using BlazorCrud.Shared;
 
 namespace BlazorCrud.Client.Services;
 
-public class GameApiService : IGameService
+public class GameApiService(HttpClient httpClient) : IGameService
 {
+    private readonly HttpClient _httpClient = httpClient;
+
     public Task<List<GameDto>> GetAllAsync()
     {
         throw new NotImplementedException();
