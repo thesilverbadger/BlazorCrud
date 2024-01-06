@@ -5,7 +5,7 @@
 @inject IGameService GameService
 
 <div class="row">
-    <div class="col-8">
+    <div class="col">
         <h3>Games</h3>
         <p>
             This page is loaded using Server Side Rendering (SSR), which is effectively Razor Pages but with Blazor components <br/>
@@ -17,8 +17,11 @@
             stream the results into the page. Magic!
         </p>
     </div>
-    <div class="col-4">
-        <NavigationButton Path="/games/create" Text="Create Game"></NavigationButton>
+</div>
+
+<div class="row">
+    <div class="col">
+        <NavigationButton Path="/games/create" IconClass="bi-plus-lg" Text="Create Game"></NavigationButton>
     </div>
 </div>
 
@@ -48,7 +51,7 @@ else
                 <div class="card mt-3">
                     <div class="card-body">
                         <h5 class="card-title">@game.Name</h5>
-                        <a href="/games/edit/@game.Id" class="btn btn-primary">Edit</a>
+                        <a href="/games/edit/@game.Id" class="btn btn-outline-primary float-end"><i class="bi bi-pencil-fill pe-2"></i>Edit</a>
                     </div>
                 </div>
             </div>
