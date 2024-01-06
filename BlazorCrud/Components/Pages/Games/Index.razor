@@ -1,0 +1,38 @@
+@page "/games"
+@using BlazorCrud.Shared
+@attribute [StreamRendering]
+
+@inject IGameService GameService
+
+<h3>Games</h3>
+
+<NavigationButton Path="/games/create" Text="Create Game"></NavigationButton>
+
+@if (_games is null)
+{
+    <span>Loading...</span>
+}
+else if(_games.Count == 0)
+{
+    <span>No games found</span>
+}
+else
+{
+    <ul>
+        @foreach (var game in _games)
+        {
+            <li>@game.Name</li>
+        }
+    </ul>
+}
+
+
+@code {
+    private List<GameDto>? _games;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _games = await GameService.GetAllAsync();
+    }
+
+}
