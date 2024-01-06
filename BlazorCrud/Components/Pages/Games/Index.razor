@@ -4,28 +4,39 @@
 
 @inject IGameService GameService
 
-<h3>Games</h3>
+<div class="row">
+    <div class="col-8">
+        <h3>Games</h3>
+    </div>
+    <div class="col-4">
+        <NavigationButton Path="/games/create" Text="Create Game"></NavigationButton>
+    </div>
+</div>
 
-<NavigationButton Path="/games/create" Text="Create Game"></NavigationButton>
-
-@if (_games is null)
-{
-    <span>Loading...</span>
-}
-else if(_games.Count == 0)
-{
-    <span>No games found</span>
-}
-else
-{
-    <ul>
-        @foreach (var game in _games)
+<div class="row">
+    <div class="col">
+        @if (_games is null)
         {
-            <li>@game.Name</li>
+            <span>Loading...</span>
         }
-    </ul>
-}
-
+        else if(_games.Count == 0)
+        {
+            <span>No games found</span>
+        }
+        else
+        {
+            @foreach (var game in _games)
+            {
+                <div class="card mt-3" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">@game.Name</h5>
+                    <a href="/games/edit/@game.Id" class="btn btn-primary">Edit</a>
+                  </div>
+                </div>
+            }
+        }
+    </div>
+</div>
 
 @code {
     private List<GameDto>? _games;
