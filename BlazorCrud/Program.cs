@@ -43,4 +43,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
+app.MapGet("/api/games/{id}", async (int id, IGameService gameService) => await gameService.GetByIdAsync(id));
+app.MapPost("/api/games", async (GameDto dto, IGameService gameService) => await gameService.AddGameAsync(dto));
+app.MapPut("/api/games", async (GameDto dto, IGameService gameService) => await gameService.UpdateGameAsync(dto));
+
 app.Run();

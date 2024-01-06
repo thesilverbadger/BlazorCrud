@@ -22,30 +22,39 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col">
-        @if (_games is null)
-        {
-            <span>Loading...</span>
-        }
-        else if(_games.Count == 0)
-        {
+@if (_games is null)
+{
+    <div class="row">
+        <div class="col">
+            <span class="visually-hidden">Loading...</span>
+            <img src="images/Eclipse-1s-200px.gif" alt="loading-gif"/>
+        </div>
+    </div>
+}
+else if(_games.Count == 0)
+{
+    <div class="row">
+        <div class="col">
             <span>No games found</span>
-        }
-        else
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var game in _games)
         {
-            @foreach (var game in _games)
-            {
-                <div class="card mt-3" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">@game.Name</h5>
-                    <a href="/games/edit/@game.Id" class="btn btn-primary">Edit</a>
-                  </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">@game.Name</h5>
+                        <a href="/games/edit/@game.Id" class="btn btn-primary">Edit</a>
+                    </div>
                 </div>
-            }
+            </div>
         }
     </div>
-</div>
+}
 
 @code {
     private List<GameDto>? _games;
@@ -54,5 +63,4 @@
     {
         _games = await GameService.GetAllAsync();
     }
-
 }
