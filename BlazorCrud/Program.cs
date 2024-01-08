@@ -1,4 +1,5 @@
 using BlazorCrud.Client.Pages;
+using BlazorCrud.Client.Pages.Games;
 using BlazorCrud.Components;
 using BlazorCrud.Data;
 using BlazorCrud.Services;
@@ -41,7 +42,7 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Counter).Assembly);
+    .AddAdditionalAssemblies(typeof(Edit).Assembly);
 
 app.MapGet("/api/games/{id}", async (int id, IGameService gameService) => await gameService.GetByIdAsync(id));
 app.MapPost("/api/games", async (GameDto dto, IGameService gameService) => await gameService.AddGameAsync(dto));
